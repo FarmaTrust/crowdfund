@@ -8,8 +8,6 @@ import "./FTCToken.sol";
 contract TokenSale is Ownable {
     using SafeMath for uint;
 
-    uint public MAXCAP = 10**18 * 1000000;
-
     TokenInterface public token;
 
     address public beneficiary;
@@ -51,6 +49,7 @@ contract TokenSale is Ownable {
         uint _cap,
         uint _start,
         uint _end,
+        uint _tokenSupply,
         uint _price,
         address _beneficiary
     ) public
@@ -58,7 +57,7 @@ contract TokenSale is Ownable {
         require(_end < _start + 60 days);
         cap = _cap;
         price = _price;
-        token = new FTCToken(MAXCAP);
+        token = new FTCToken(_tokenSupply);
         beneficiary = _beneficiary;
 
         startTime = _start;
