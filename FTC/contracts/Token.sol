@@ -2,6 +2,7 @@ pragma solidity ^0.4.17;
 
 import "./TokenInterface.sol";
 import "./Ownable.sol";
+import "./SafeMath.sol";
 
 contract Token is TokenInterface, Ownable {
     using SafeMath for uint;
@@ -20,7 +21,7 @@ contract Token is TokenInterface, Ownable {
     event Approval(address indexed owner, address indexed spender, uint value);
     event Transfer(address indexed from, address indexed to, uint value);
 
-    function Token(string _name, string _symbol, uint256 _totalSupply) {
+    function Token(string _name, string _symbol, uint256 _totalSupply) public {
         name = _name;
         symbol = _symbol;
         totalSupply = _totalSupply;

@@ -2,9 +2,13 @@ pragma solidity ^0.4.17;
 
 import "./Ownable.sol";
 import "./SafeMath.sol";
+import "./TokenInterface.sol";
+import "./FTCToken.sol";
 
 contract TokenSale is Ownable {
     using SafeMath for uint;
+
+    uint public MAXCAP = 10**18 * 1000000;
 
     TokenInterface public token;
 
@@ -24,7 +28,10 @@ contract TokenSale is Ownable {
 
     event GoalReached(uint amountRaised);
     event NewContribution(address indexed holder, uint256 tokens, uint256 contributed);
+    event PresaleContribution(address indexed holder, uint256 tokens);
     event Refunded(address indexed beneficiary, uint amount);
+
+    modifier onlyBeforeSale { require(block.timestamp < startTime); _; }
 
     modifier onlyAfterSale { require(block.timestamp > endTime); _; }
 
@@ -44,14 +51,14 @@ contract TokenSale is Ownable {
         uint _cap,
         uint _start,
         uint _end,
-        address _token,
         uint _price,
         address _beneficiary
     ) public
     {
+        require(_end < _start + 60 days);
         cap = _cap;
         price = _price;
-        token = TokenInterface(_token);
+        token = new FTCToken(MAXCAP);
         beneficiary = _beneficiary;
 
         startTime = _start;
@@ -75,7 +82,7 @@ contract TokenSale is Ownable {
         require(collected < cap);
 
         uint value = msg.value;
-        uint tokens = value.mul(price);
+        uint tokens = value.mul(getPrice());
 
         collected = collected.add(value);
         token.transfer(owner, tokens);
@@ -96,4 +103,26 @@ contract TokenSale is Ownable {
             whitelist[addresses[i]] = amounts[i];
         }
     }
+
+    function presaleAllocation(address[] investors, uint256[] tokens) public onlyBeforeSale onlyOwner {
+        require(investors.length == tokens.length);
+
+        for (uint256 i = 0; i < investors.length; i++){
+            token.transfer(investors[i], tokens[i]);
+            PresaleContribution(investors[i], tokens[i]);
+        }
+    }
+
+    function getPrice() public view onlyDuringSale returns (uint256) {
+
+        if (now < startTime + 7 days){
+            return price.mul(100).div(125);
+        }
+        else if (now < startTime + 14 days){
+            return price.mul(99).div(110);
+        }
+        else return price;
+
+    }
+
 }
