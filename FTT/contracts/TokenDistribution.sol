@@ -32,6 +32,7 @@ contract TokenDistribution is ERC223ReceivingContract, Ownable {
 
   event Buy(address beneficiary, uint amount, uint value);
   event GoalReached(uint amountRaised);
+  event PresaleContribution(address indexed holder, uint256 tokens);
 
   enum FundingPhase {
     Phase1,
@@ -78,7 +79,12 @@ contract TokenDistribution is ERC223ReceivingContract, Ownable {
     require(isFinalized); 
     _; 
   }
-
+  
+  modifier onlyBeforeSale { 
+    require(block.timestamp < startTime); 
+    _; 
+  }
+  
   modifier onlyWhenEnded {
     require(block.timestamp > _end || capReached);
     _;
@@ -169,6 +175,19 @@ contract TokenDistribution is ERC223ReceivingContract, Ownable {
       whitelist[addresses[i]] = amounts[i];
     }
   }  
+
+  function presaleAllocation(address[] investors, uint256[] tokens) 
+    public 
+    onlyBeforeSale 
+    onlyOwner 
+  {
+        require(investors.length == tokens.length);
+
+        for (uint256 i = 0; i < investors.length; i++){
+            token.transfer(investors[i], tokens[i]);
+            PresaleContribution(investors[i], tokens[i]);
+        }
+  }
 
   function finalize() 
     public 
