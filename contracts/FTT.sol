@@ -159,7 +159,7 @@ contract FTT is Ownable {
         // Deposit team fund amount into team vesting contract.
         uint256 teamVestingCliff = 15778476;  // 6 months 
         uint256 teamVestingDuration = 1 years; 
-        TokenVesting teamVesting = new TokenVesting(owner, now, teamVestingCliff, teamVestingDuration, true);
+        TokenVesting teamVesting = new TokenVesting(owner, now, teamVestingCliff, teamVestingDuration, false);
         teamVesting.transferOwnership(owner);   
         teamVestingAddress = address(teamVesting); 
         balances[teamVestingAddress] = FT_TEAM_FUND; 
@@ -168,7 +168,7 @@ contract FTT is Ownable {
             // Deposit unsold FTT into unsold vesting contract.
             uint256 unsoldVestingCliff = 3 years; 
             uint256 unsoldVestingDuration = 10 years; 
-            TokenVesting unsoldVesting = new TokenVesting(owner, now, unsoldVestingCliff, unsoldVestingDuration, true); 
+            TokenVesting unsoldVesting = new TokenVesting(owner, now, unsoldVestingCliff, unsoldVestingDuration, false); 
             unsoldVesting.transferOwnership(owner);            
             unsoldVestingAddress = address(unsoldVesting); 
             balances[unsoldVestingAddress] = FT_TOKEN_SALE_CAP - fttIssued;             
