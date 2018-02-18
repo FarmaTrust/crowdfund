@@ -132,7 +132,7 @@ contract("FTT", async (accounts) => {
 
         // Attempt to issue the entire hard cap amount 
         assertRejects(ftt.issueFTT(contributorThree, expectedTokenSaleCap.toString(10), {from: tdeIssuer}), 
-             "Should not bepossible to issue FTT tokenSaleCap at this point");           
+             "Should not be possible to issue FTT tokenSaleCap at this point");           
 
         var fttIssued = await ftt.fttIssued.call(); 
         var contributorTotalFTT = balanceOfContributorOne.plus(balanceOfContributorTwo); 
@@ -278,7 +278,7 @@ contract("FTT", async (accounts) => {
 
         // Attempt to issue hard cap amount 
         assertRejects(ftt.issueFTT(contributorThree, expectedTokenSaleCap.toString(), {from: tdeIssuer}), 
-             "Should not bepossible to issue FTT tokenSaleCap at this point");           
+             "Should not be possible to issue FTT tokenSaleCap at this point");           
 
         var fttIssued = await ftt.fttIssued.call(); 
         var contributorTotalFTT = balanceOfContributorOne.plus(balanceOfContributorTwo); 
