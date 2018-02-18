@@ -83,6 +83,7 @@ contract FTT is Ownable {
 
     /**
      * @dev Allows contract owner to stop and optionally restart the TDE. 
+     * @param _restart Resets the tdeStartTime if true.
      */
     function stopTde(bool _restart) 
         external 
