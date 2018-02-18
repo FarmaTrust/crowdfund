@@ -66,15 +66,15 @@ contract("FTT", async (accounts) => {
 
     it("Should not be possible to finalize TDE before it has started.", async() => {
         assertRejects(ftt.finalize({ from: owner }), 
-        "Should not bepossible to finalize TDE before it has started.");
+        "Should not be possible to finalize TDE before it has started.");
     });
 
     it("Should not be possible to invoke critical TDE events before it has started.", async() => {
         assertRejects(ftt.setOperationalReserveAddress(operationalReserveAddress, { from: owner }), 
-        "Should not bepossible to set operational reserve address before TDE has started.");
+        "Should not be possible to set operational reserve address before TDE has started.");
 
         assertRejects(ftt.issueFTT(contributorOne, fttIssueAmount1.toString(10), { from: owner }), 
-        "Should not bepossible to issue FTT before TDE has started.");        
+        "Should not be possible to issue FTT before TDE has started.");        
     });
 
     it("FTT issued should equal zero before TDE starts", async() => {
