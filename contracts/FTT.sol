@@ -98,6 +98,7 @@ contract FTT is Ownable {
 
     /**
      * @dev Allows contract owner to increase TDE period. 
+     * @param _time amount of time to increase TDE period by.
      */
     function extendTde(uint256 _time) 
         external 
@@ -108,6 +109,7 @@ contract FTT is Ownable {
 
     /**
      * @dev Allows contract owner to reduce TDE period. 
+     * @_time amount of time to reduce TDE period by.
      */
     function shortenTde(uint256 _time) 
         external 
@@ -118,6 +120,7 @@ contract FTT is Ownable {
 
     /**
      * @dev Allows contract owner to set the FTT issuing authority. 
+     * @param _tdeIssuer address of FTT issuing authority.
      */
     function setTdeIssuer(address _tdeIssuer) 
         external 
@@ -128,6 +131,7 @@ contract FTT is Ownable {
 
     /**
      * @dev Allows contract owner to set the beneficiary of the FT operational reserve amount of FTT.
+     * @param _operationalReserveAddress address of FT operational reserve beneficiary.
      */
     function setOperationalReserveAddress(address _operationalReserveAddress) 
         external 
@@ -139,6 +143,8 @@ contract FTT is Ownable {
 
     /**
      * @dev Issues FTT to entitled accounts.
+     * @param _user address to issue FTT to. 
+     * @param _fttAmount amount of FTT to issue. 
      */
     function issueFTT(address _user, uint256 _fttAmount) 
         public 
