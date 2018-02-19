@@ -109,7 +109,7 @@ contract FTT is Ownable {
 
     /**
      * @dev Allows contract owner to reduce TDE period. 
-     * @_time amount of time to reduce TDE period by.
+     * @param _time amount of time to reduce TDE period by.
      */
     function shortenTde(uint256 _time) 
         external 
