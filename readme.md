@@ -1,6 +1,3 @@
-# FarmaTrust TDE
-FarmaTrust Token Distribution Event contracts originally by Matthew Di Ferrante.
-
 # FarmaTrust ERC20 Token (FTT)
 
 The FTT contract implements an ERC20 token with some management functionality. There are no known security issues with the contract.
