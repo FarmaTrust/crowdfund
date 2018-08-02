@@ -10,7 +10,7 @@ The FTT token contract is self contained in that it implements both an ERC20 Tok
 
 ```
 contract FTT is Ownable {
-	using SafeMath for  uint256;
+	using SafeMath for uint256;
 ```
 `SafeMath` is used throughout the entire contract.
 
@@ -263,4 +263,4 @@ On finalization, the following actions occur:
 - If the cap is not reached, a token vesting contract is instantiated, and the amount of unsold FTT is allocated to the token vesting address. 
 - FTT equalling the `FT_OPERATIONAL_FUND` minus the `FT_TEAM_FUND` is allocated to the operational reserve address
 - The global variable `isFinalized` is set to true. 
-- The event `TdeFinalized` is fired, and the time of finalization is logged. 
+- The event `TdeFinalized` is emitted, and the time of finalization is logged. 
